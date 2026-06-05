@@ -46,3 +46,21 @@ Producer request: Tessa (#11) needs a curve adjustment in the mid-game range. At
 
 **Caveats / follow-ups:**
 - None — levels outside L10–L15 left unchanged per intent; no cascade on other heroes.
+
+---
+
+## 2026-06-05 — Thorne rebucketed to lower-tier unlock chain (unlock_require_id 5010 → 5005)
+
+**Commit:** `0f20e30`
+
+**Change:**
+- `Src_Hero_Data.txt` · `hero_id=4, levels=1–30` · `unlock_require_id`: 5010 → 5005 (all 30 rows; power unaffected)
+
+**Reason:**
+Producer request: Thorne (#4) needs to move into the lower-tier unlock chain. `unlock_require_id` changed from 5010 to 5005 across all levels. 5005 is the same chain used by Aldric (#2), Doran (#10), and Roric (#16).
+
+**Validation:**
+- `qa-check-lite`: PASS (no warnings; 5010 was exclusive to Thorne so its removal creates no dangling references in the file)
+
+**Caveats / follow-ups:**
+- 5010 no longer appears anywhere in `Src_Hero_Data.txt` — if a require-table entry for 5010 exists server-side, it is now unreferenced and can be cleaned up separately.
