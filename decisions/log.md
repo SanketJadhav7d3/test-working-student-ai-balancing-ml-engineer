@@ -64,3 +64,23 @@ Producer request: Thorne (#4) needs to move into the lower-tier unlock chain. `u
 
 **Caveats / follow-ups:**
 - 5010 no longer appears anywhere in `Src_Hero_Data.txt` — if a require-table entry for 5010 exists server-side, it is now unreferenced and can be cleaned up separately.
+
+---
+
+## 2026-06-05 — Brogan L5 HP hard nerf (hp: 1794 → 100, runtime floor)
+
+**Commit:** `701cde1`
+
+**Change:**
+- `Src_Hero_Data.txt` · `hero_id=7, level=5` · `hp`: 1794 → 100
+- `Src_Hero_Data.txt` · `hero_id=7, level=5` · `power`: 906 → 737 (recomputed)
+
+**Reason:**
+Producer request: Brogan (#7) is enabling players to clear the first dungeon too fast — hard nerf requested by dropping his L5 hp from 1794 to 90. Value was adjusted to 100 (the runtime floor documented in `known-overrides.md` / `HeroCombat.java:142`) because hp=90 would be silently clamped to 100 at runtime, making the original ask a no-op.
+
+**Validation:**
+- `qa-check-lite`: PASS (hero_id=7, level=5 hp=100 is exactly at the floor — not below it; override rule satisfied)
+
+**Caveats / follow-ups:**
+- Producer originally requested hp=90; the effective in-game value will be 100 due to the runtime clamp. If a deeper nerf is needed, the floor in `HeroCombat.java:142` must be lowered first (code change, not a data change).
+- All other Brogan levels left unchanged.
