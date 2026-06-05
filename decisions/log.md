@@ -22,3 +22,27 @@ Producer request: Mira (#1) is feeling weak in the mid-game. Attack at L20 bumpe
 
 **Caveats / follow-ups:**
 - None
+
+---
+
+## 2026-06-05 — Tessa L10–L15 attack curve boost (+10% per level)
+
+**Commit:** `be79d96`
+
+**Change:**
+- `Src_Hero_Data.txt` · `hero_id=11, levels=10–15` · `attack`: +10% per level (6 rows); power recomputed each row
+  - L10: 375 → 413 (power 1062 → 1138)
+  - L11: 398 → 438 (power 1127 → 1207)
+  - L12: 422 → 464 (power 1196 → 1280)
+  - L13: 444 → 488 (power 1260 → 1348)
+  - L14: 468 → 515 (power 1328 → 1422)
+  - L15: 490 → 539 (power 1391 → 1489)
+
+**Reason:**
+Producer request: Tessa (#11) needs a curve adjustment in the mid-game range. Attack at L10–L15 boosted by 10% at each level independently to steepen her power curve through that window.
+
+**Validation:**
+- `qa-check-lite`: PASS (no warnings)
+
+**Caveats / follow-ups:**
+- None — levels outside L10–L15 left unchanged per intent; no cascade on other heroes.
